@@ -1,0 +1,121 @@
+﻿<Window x:Class="Lab3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab3.Converters"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        Title="Lab3" MinHeight="600" MinWidth="1000" Height="600" Width="1000" Closed="Window_Closed">
+    <Window.Resources>
+        <local:ObjectEqualNull x:Key="ObjectEqualNull" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button Content="Connect" Grid.Row="1" Background="#FF85DE3A" Foreground="#FF2E2E2E" FontWeight="Bold" Click="ButtonBase_OnClick" Grid.ColumnSpan="3" >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.IsConnected}" Value="True">
+                            <Setter Property="Visibility" Value="Hidden" />
+                            <Setter Property="Height" Value="0" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DataContext.IsConnected}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="Height" Value="46" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="37"/>
+                <RowDefinition Height="236*"/>
+            </Grid.RowDefinitions>
+            <ListView Margin="10" Grid.Row="1" Grid.Column="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Margin="10" Grid.Row="1" Grid.Column="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Grid.Row="0" Grid.Column="0" Content="Cabins:" Margin="10,6,10,5"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="Passengers:" Margin="10,6,114,5"/>
+            <!--Passenger-->
+            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Background="#FFEAEAEA">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DataContext.CurrentPassenger, Converter={StaticResource ObjectEqualNull}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden" />
+                                <Setter Property="Width" Value="0" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DataContext.CurrentPassenger, Converter={StaticResource ObjectEqualNull}}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Width" Value="200" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Label VerticalAlignment="Top" Height="33" Margin="0,0,10,0" Content="Passenger"/>
+                <Label Content="Name:" Margin="10,38,10,0" VerticalAlignment="Top"/>
+                <TextBox Height="23" Margin="10,64,10,0" TextWrapping="Wrap" Text="{Binding CurrentPassenger.Name}" VerticalAlignment="Top"/>
+                <Label Content="Date of Birth:" Margin="10,92,10,0" VerticalAlignment="Top"/>
+                <DatePicker Margin="10,123,10,0" VerticalAlignment="Top" SelectedDate="{Binding CurrentPassenger.DateOfBirth}" Background="White"/>
+                <Label Content="Cabin id:" Margin="10,152,10,0" VerticalAlignment="Top"/>
+                <TextBox Height="23" Margin="10,178,10,0" TextWrapping="Wrap" Text="{Binding CurrentPassenger.CabinId}" VerticalAlignment="Top"/>
+                <Button Content="Save" Margin="115,0,0,10" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom" Click="ButtonBase3_OnClick"/>
+                <Button Content="Cancel" Margin="10,0,0,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" Click="ButtonBase2_OnClick"/>
+            </Grid>
+            <!--Cabin-->
+            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Background="#FFEAEAEA">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DataContext.CurrentCabin, Converter={StaticResource ObjectEqualNull}}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden" />
+                                <Setter Property="Width" Value="0" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DataContext.CurrentCabin, Converter={StaticResource ObjectEqualNull}}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Width" Value="200" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Label Content="Cabin" VerticalAlignment="Top" Height="38"/>
+                <Label Content="Number:" Margin="10,38,10,0" VerticalAlignment="Top"/>
+                <TextBox Height="23" Margin="10,64,10,0" TextWrapping="Wrap" Text="{Binding CurrentPassenger.Number}" VerticalAlignment="Top"/>
+                <Label Content="Count beds:" Margin="10,92,10,0" VerticalAlignment="Top"/>
+                <TextBox Height="23" Margin="10,123,10,0" TextWrapping="Wrap" Text="{Binding CurrentPassenger.CountBeds}" VerticalAlignment="Top"/>
+                <Label Content="Location:" Margin="10,152,10,0" VerticalAlignment="Top"/>
+                <TextBox Height="23" Margin="10,178,10,0" TextWrapping="Wrap" Text="{Binding CurrentPassenger.Location}" VerticalAlignment="Top"/>
+                <Button Content="Save" Margin="115,0,0,10" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom" Click="ButtonBase6_OnClick"/>
+                <Button Content="Cancel" Margin="10,0,0,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="75" Click="ButtonBase2_OnClick"/>
+            </Grid>
+            <Button Grid.Row="0" Grid.Column="1" Margin="0,10,10,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="22" Height="22" VerticalAlignment="Top" Click="ButtonBase4_OnClick" >
+                <fa:ImageAwesome Icon="PlusCircle" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+            <Button Grid.Row="0" Grid.Column="0" Margin="0,10,10,0" Background="{x:Null}" BorderBrush="{x:Null}" Height="22" VerticalAlignment="Top" HorizontalAlignment="Right" Width="22" Click="ButtonBase5_OnClick">
+                <fa:ImageAwesome Icon="PlusCircle" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
