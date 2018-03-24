@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Configuration;
@@ -41,6 +42,9 @@ namespace Lab3
                 OnPropertyChanged(nameof(CurrentPassenger));
             }
         }
+
+        public ObservableCollection<Passenger> Passengers;
+        public ObservableCollection<Cabin> Cabins;
 
         private SqlConnection _connection;
 
